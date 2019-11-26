@@ -1,0 +1,47 @@
+version: '3.7'
+
+services :
+
+  php-apache: 
+    build: ./
+    volumes:
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on: 
+      - mysql
+    links:
+      - mysql
+    networks: 
+      - karma_networks
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: karma_db
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 1234s
+    volumes:
+      - ./docker/database:/var/lib/mysql
+    networks: 
+      - karma_networks
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    volumes:
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    environment:
+      PMA_ARBITRARY: 1
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    links: 
+      - mysql
+    networks: 
+      - karma_networks
+
+networks: 
+  karma_networks:
+    driver: bridge
