@@ -7,9 +7,13 @@ use yii\web\Controller;
 use frontend\models\Product;
 use frontend\models\Cart;
 use frontend\models\UserData;
+use common\models\Order;
+use common\models\OrderProduct;
 
 class CartController extends Controller
-{
+{   
+    public $enableCsrfValidation = false;
+
     public function actionIndex()
     {   
         $session = Yii::$app->session;
@@ -22,6 +26,12 @@ class CartController extends Controller
     {
         $session = Yii::$app->session;
         $session->open();
+
+        if (!isset($_SESSION['cart_total']['shipping'])) {
+            $_SESSION['cart_total']['shipping'] = 0;
+        }
+        $_SESSION['cart_total']['total_all'] = $_SESSION['cart_total']['total_sum'] + 
+        $_SESSION['cart_total']['shipping'];
 
         $user_id = Yii::$app->user->identity['id'];
         $email = Yii::$app->user->identity['email'];
@@ -41,8 +51,79 @@ class CartController extends Controller
         }
     }
 
+    public function actionProcess()
+    {
+        if (empty($_POST)) {
+            die;
+        }
 
+        $test_key = 'QJT0fRX9rD6qi2zy';
+        $ic_co_id = "5ddbca751ae1bd11048b4594";
+        $dataSet = $_POST;
 
+        unset($dataSet['ik_sign']); 
+        ksort($dataSet, SORT_STRING); 
+        array_push($dataSet, $test_key); 
+        $signString = implode(':', $dataSet); 
+        $sign = base64_encode(md5($signString, true)); 
+        
+        $order = Order::findOne(['id' => $dataSet['ik_pm_no']]);
+
+        if (!$order) die;
+        if ($dataSet['ik_co_id'] != $ic_co_id || $dataSet['ik_inv_st'] != 'success' ||
+        $dataSet['ik_am'] != $order->res_price || $sign != $_POST['ik_sign']) {
+            die;
+        } 
+
+        $order->status = 1;
+        $order->save(false);
+        return true;
+    }
+
+    public function actionSuccess()
+    {
+        return $this->render('success');
+    }
+
+    public function actionWait()
+    {
+        $session = Yii::$app->session;
+        $session->open();
+
+        if (empty($_POST)) {
+            $this->redirect(['/cart/customer-data']);
+        }
+
+        $order = new Order();
+        $this->loadOrderData($order);
+       
+        if ($order->save(false)) {
+            $order_id = OrderProduct::saveOrderItems();
+
+            return $this->render('wait', [
+                'order_id' => $order_id,
+            ]);
+        }       
+    }
+
+    protected function loadOrderData($order)
+    {   
+        $order->res_price = $_SESSION['cart_total']['total_all'];
+        $order->shipping = $_SESSION['cart_total']['shipping'];
+        $order->first_name = Yii::$app->request->post('f_name');
+        $order->company = Yii::$app->request->post('company');
+        $order->last_name = Yii::$app->request->post('l_name');
+        $order->phone = Yii::$app->request->post('number');
+        $order->email = Yii::$app->request->post('email');
+        $order->country = Yii::$app->request->post('country');
+        $order->region = Yii::$app->request->post('region');
+        $order->city = Yii::$app->request->post('city');
+        $order->first_addr = Yii::$app->request->post('add1');
+        $order->second_addr = Yii::$app->request->post('add2');
+        $order->status = 0;
+    }
+
+    // ============= AJAX ACTIONS ===================
     public function actionAddProduct()
     {   
         $session = Yii::$app->session;

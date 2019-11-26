@@ -77,7 +77,7 @@ function ifActivePage($string)
 
 							<li class="nav-item <?=ifActivePage('/category')?>">
 								<a class="nav-link" 
-								href="<?=Url::to(['category/index'])?>">Категории</a>
+								href="<?=Url::to(['category/index'])?>">Товары</a>
 							</li>
 
 							<li class="nav-item" <?=ifActivePage('/blog')?>>

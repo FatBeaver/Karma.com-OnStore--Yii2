@@ -4,8 +4,8 @@ use yii\helpers\html;
 ?>
 <div class="col-lg-8">
     <h3 style="font-size:32px !important;">Реквизиты заказа</h3>
-    <form class="row contact_form" action="<?=Url::to(['/cart/profile'])?>" method="post" 
-        novalidate="novalidate" id="cart-form-form" enctype="multipart/form-data">
+    <form class="row contact_form" action="<?=Url::to(['/cart/wait'])?>" method="post" 
+        novalidate="novalidate" id="cart-form" enctype="multipart/form-data">
 
         <div class="col-md-6 form-group p_star">
             <label for="first">Ваше имя</label>

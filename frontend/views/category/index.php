@@ -14,7 +14,7 @@ use yii\helpers\Url;
                 <h1>Страница категорий</h1>
                 <nav class="d-flex align-items-center">
                     <a href="<?=Url::to(['home/index'])?>">Главная<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="<?=Url::to(['category/index'])?>">Категории<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="<?=Url::to(['category/index'])?>">Товары<span class="lnr lnr-arrow-right"></span></a>
                     <a href="#" id="category_id" data-id="<?=$categoryId?>"><?=$selectedCategoryName?></a>
                 </nav>
             </div>

@@ -1179,7 +1179,7 @@ $(document).ready(function() {
         })
     });
 
-    // ------------------- Shipping Block -------------------
+    // ------------------- Shipping Block -----------------------
     $('.shipping_box > ul > li').on('click', function(e) {
         e.preventDefault();
         var price = $(this).children('a').data('price');
@@ -1197,9 +1197,8 @@ $(document).ready(function() {
             }
         });
     });
-    // ---------------------- Validate Checkout Form ------------------ 
-    //$('.process-button').prop("disabled", true);
 
+    // ---------------------- Validate Checkout Form ------------------ 
     function cartInputValidate(formElem) {
         if (formElem.val().length == 0) {
             $('.process-button').prop("disabled", true);
@@ -1253,8 +1252,9 @@ $(document).ready(function() {
         emailValidate(emailEl);
     });
 
-
-
+    setTimeout(function() {
+        $('#payment').submit();
+    }, 4000);
 
     // ======================= BLOG ========================
     $('.input-search').on('keypress', function(e) {
