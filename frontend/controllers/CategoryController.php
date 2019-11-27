@@ -59,6 +59,41 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function actionSale()
+    {
+        $limit = 6;
+        if (!$page = Yii::$app->request->get('page')){
+            $page = 1;
+        }
+        $offset = ($page - 1) * $limit;
+
+        $category = new Category();
+        $product = new Product();
+
+        $saleProducts = $product->getSaleProdForPage($limit, $offset);
+        $total = Product::find()->count();
+
+        $selectedCategoryName = 'Распродажа';
+
+        $allCategories = $category->getAllCategories();
+        $weekProducts = $product->getDealsWeekProducts();
+
+        if ($limit < $total) {
+            $pagination = new Pagination($total, $limit, $page, 'category');
+        } else {
+            $pagination = null;
+        }
+        $id = 0;
+        
+        return $this->render('index', [
+            'pageProducts' => $saleProducts,
+            'allCategories' => $allCategories, 
+            'weekProducts' => $weekProducts,
+            'pagination' => $pagination,
+            'selectedCategoryName' => $selectedCategoryName,
+            'categoryId' => $id,
+        ]);
+    }
 
     //=================== AJAX ACTIONS ====================
     public function actionSelectPage()

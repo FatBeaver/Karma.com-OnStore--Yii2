@@ -178,13 +178,18 @@ class Product extends \yii\db\ActiveRecord
         }
         
         return self::find()->where(['category_id' => $id])
-            ->andWhere(['between', 'price' , $order_price[0], $order_price[1]])
+            ->andWhere(['between', 'price', $order_price[0], $order_price[1]])
             ->limit($limit)
             ->offset($offset)
             ->orderBy([$order_id => SORT_DESC])
             ->all();   
     }
 
+    public function getSaleProdForPage($limit, $offset)
+    {
+        return self::find()->where(['sale' => 1])->limit($limit)->offset($offset)->
+            orderBy(['id' => SORT_DESC])->all();
+    }
 
     // =============================== LINKS ==========================================
     public function getCategory()

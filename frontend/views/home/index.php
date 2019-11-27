@@ -63,7 +63,7 @@ use common\widgets\HomeCategoryWidget;
 							<img src="img/features/f-icon1.png" alt="">
 						</div>
 						<h6>Бесплатная доставка</h6>
-						<p>Free Shipping on all order</p>
+						<p>Различные типы доставки</p>
 					</div>
 				</div>
 				<!-- single features -->
@@ -73,7 +73,7 @@ use common\widgets\HomeCategoryWidget;
 							<img src="img/features/f-icon2.png" alt="">
 						</div>
 						<h6>Возврат средств</h6>
-						<p>Free Shipping on all order</p>
+						<p>Присутсвует система возврата средств</p>
 					</div>
 				</div>
 				<!-- single features -->
@@ -83,7 +83,7 @@ use common\widgets\HomeCategoryWidget;
 							<img src="img/features/f-icon3.png" alt="">
 						</div>
 						<h6>24/7 Поддержка</h6>
-						<p>Free Shipping on all order</p>
+						<p>Наши специалисты помогут <br/>вам в любое время суток</p>
 					</div>
 				</div>
 				<!-- single features -->
@@ -93,7 +93,7 @@ use common\widgets\HomeCategoryWidget;
 							<img src="img/features/f-icon4.png" alt="">
 						</div>
 						<h6>Защищенные платежи</h6>
-						<p>Free Shipping on all order</p>
+						<p>Только защищенные платежные системы</p>
 					</div>
 				</div>
 			</div>
@@ -115,10 +115,14 @@ use common\widgets\HomeCategoryWidget;
 				<div class="col-lg-4 col-md-6">
 					<div class="single-deal">
 						<div class="overlay"></div>
-						<img class="img-fluid w-100" src="img/category/c5.jpg" alt="">
-						<a href="img/category/c5.jpg" class="img-pop-up" target="_blank">
+						<img class="img-fluid w-100" src="img/category/c5.jpg" alt="sale">
+						<a href="#" class="img-pop-up" target="_blank">
 							<div class="deal-details">
-								<h6 class="deal-title">распродажа</h6>
+								<h6 class="deal-title">
+									<a href="<?=Url::to(['/category/sale/'])?>" style="color:white;">
+										Распродажа
+									</a>
+								</h6>
 							</div>
 						</a>
 					</div>
@@ -415,8 +419,8 @@ use common\widgets\HomeCategoryWidget;
 
 				<div class="col-lg-3">
 					<div class="ctg-right">
-						<a href="#" target="_blank">
-							<img class="img-fluid d-block mx-auto" src="/img/category/c5.jpg" alt="">
+						<a href="<?=Url::to(['/category/sale'])?>" target="_blank">
+							<img class="img-fluid d-block mx-auto" src="/img/category/c5.jpg" alt="sale">
 						</a>
 					</div>
 				</div>

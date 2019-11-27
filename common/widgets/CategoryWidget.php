@@ -41,17 +41,26 @@ class CategoryWidget extends Widget
                 '<span class="number">( ' . count($category->products). ' )</span>
                 </a></li>';
             } else {
-                $this->viewHtml .= '<li class="main-nav-list"><a data-toggle="collapse" href="#'. $category->name.'" 
-                aria-expanded="false" aria-controls="'. $category->name .'"><span class="lnr lnr-arrow-right">
-                </span>'. $category->name .'<span class="number">( ' . count($category->products). ' )</span></a>
+                $this->viewHtml .= '<li class="main-nav-list">
+                <div style="display:flex; justify-content:space-between;">
+                    <a href="/category/'.$category->id.'">'. $category->name .'
+                        <span class="number">('. count($category->products). ')</span>
+                    </a>
+
+                    <a data-toggle="collapse" href="#'. $category->name.'" 
+                        aria-expanded="false" aria-controls="'. $category->name .'">
+                            <i class="fa fa-plus"></i>
+                    </a>
+                </div>    
                     <ul class="collapse" id="'.$category->name . '" data-toggle="collapse" aria-expanded="false" 
-                    aria-controls="' . $category->name . '">';
+                        aria-controls="' . $category->name . '">';
                         foreach($category['childs'] as $child) 
                         {
                             $this->viewHtml .=  '<li class="main-nav-list child">
-                            <a href="/category/'.$child->id.'">' . $child->name. 
-                            '<span class="number">( ' . count($category->products). ' )</span>
-                            </a></li>';
+                                <a href="/category/'.$child->id.'">' . $child->name. 
+                                    '<span class="number">( ' . count($category->products). ' )</span>
+                                </a>
+                            </li>';
                         }
                 $this->viewHtml .= '</ul>';
                 $this->viewHtml .= '</li>';
