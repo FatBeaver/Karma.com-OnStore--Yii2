@@ -77,7 +77,7 @@ class BlogPost extends \yii\db\ActiveRecord
     // ========================== LINKS ======================
     public function getComments()
     {
-        return $this->hasMany(BlogComment::className(), ['blog_id' => 'id']);
+        return $this->hasMany(BlogComment::className(), ['blog_id' => 'id'])->where(['status' => 0])->all();
     }
 
     public function getCategories()
@@ -93,7 +93,7 @@ class BlogPost extends \yii\db\ActiveRecord
 
     public function getCommentsForPage($limit, $offset)
     {
-        return $this->hasMany(BlogComment::className(), ['blog_id' => 'id'])
+        return $this->hasMany(BlogComment::className(), ['blog_id' => 'id'])->where(['status' => 0])
             ->limit($limit)->offset($offset)->orderBy(['id' => SORT_DESC])->all();
     }
 }

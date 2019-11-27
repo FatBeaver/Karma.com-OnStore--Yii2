@@ -57,20 +57,25 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'res_price' => 'Res Price',
-            'shipping' => 'Shipping',
-            'created_at' => 'Created At',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'company' => 'Company',
-            'phone' => 'Phone',
+            'res_price' => 'Сумма',
+            'shipping' => 'Доставка',
+            'created_at' => 'Созданно',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'company' => 'Компания',
+            'phone' => 'Телефон',
             'email' => 'Email',
-            'country' => 'Country',
-            'region' => 'Region',
-            'city' => 'City',
-            'first_addr' => 'First Addr',
-            'second_addr' => 'Second Addr',
-            'status' => 'Status',
+            'country' => 'Страна',
+            'region' => 'Регион',
+            'city' => 'Город',
+            'first_addr' => 'Первый адресс',
+            'second_addr' => 'Второй адресс',
+            'status' => 'Статус',
         ];
+    }
+
+    public function getOrderItems()
+    {
+        return $this->hasMany(OrderProduct::className(), ['order_id' => 'id']);
     }
 }
